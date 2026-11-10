@@ -1,0 +1,93 @@
+---
+# Copy this file to content/projects/<slug>.mdx. The filename is the slug (lowercase kebab-case, e.g. my-project).
+# Files starting with "_" are ignored. Run `npm run check:content` after editing.
+
+# Project name, shown on the card, in the menu and as the page title.
+name: My Project
+# One sentence: what it is and who it's for.
+tagline: A short sentence saying what the project does and why it matters.
+# Position on the home page and in the menu. Must be unique among published projects.
+order: 99
+# true = visible in `npm run dev` only, hidden in production builds.
+draft: true
+# Free text shown next to a green dot.
+status: Live
+# What kind of app it is, shown on the card and in the menu.
+type: Full-stack web app
+# Your role. Quote it if it contains a colon.
+role: "Solo: design, build, deploy"
+# Year or range. Always quote it, or YAML turns 2026 into a number.
+timeline: "2026"
+# Main project color and second gradient color (hex). Pick colors no other project uses.
+accent: "#2563eb"
+accent2: "#a855f7"
+# Live site and source code. Both must be https:// URLs.
+live: https://example.vercel.app/
+repo: https://github.com/michaelhughes45/my-project
+# 1280×800 screenshot in public/. Must exist.
+cover: /projects/my-project/cover.png
+# What the screenshot shows, for screen readers.
+coverAlt: My Project's dashboard showing a list of items
+# 3–8 technologies. The first 4 appear on the card, the first 3 in the meta row.
+chips: [Next.js, TypeScript, Postgres]
+# Exactly 3 short bullets: the most impressive concrete facts.
+highlights:
+  - First concrete thing worth knowing
+  - Second concrete thing worth knowing
+  - Third concrete thing worth knowing
+# The problem the project solves, in one or two sentences.
+problem: People had to do X by hand, which was slow and error-prone.
+# How the project solves it, in one or two sentences.
+solution: My Project does X automatically and shows the result in one place.
+# 4–6 features. icon is one of: home, calendar, repeat, chart, bell, shield, layers, swords, zap, move, search, users, upload, heart.
+features:
+  - icon: home
+    title: Feature name
+    text: One or two sentences on what it does.
+  - icon: search
+    title: Feature name
+    text: One or two sentences on what it does.
+  - icon: users
+    title: Feature name
+    text: One or two sentences on what it does.
+  - icon: shield
+    title: Feature name
+    text: One or two sentences on what it does.
+# 1–4 groups, each with 1–6 items. short is the 1–2 character badge; why is one line on why it was chosen.
+stack:
+  - group: Frontend
+    items:
+      - name: Next.js 16
+        short: "N"
+        why: Why this was the right choice for this project.
+  - group: Backend & data
+    items:
+      - name: Postgres
+        short: "Pg"
+        why: Why this was the right choice for this project.
+# How it works. flow: 2–4 nodes left to right. label is the text on the arrow INTO that node; main: true highlights a node.
+# extras: 0–3 supporting services (tag is a short category label).
+arch:
+  flow:
+    - title: Browser
+      sub: React UI
+    - title: Next.js on Vercel
+      sub: Server Components
+      label: HTTPS
+      main: true
+    - title: Postgres
+      sub: managed database
+      label: SQL
+  extras:
+    - tag: Auth
+      title: Auth provider
+      sub: what it handles
+# 2–4 hard problems and what was learned.
+challenges:
+  - title: A hard problem
+    text: What made it hard and how it was solved.
+  - title: Another hard problem
+    text: What made it hard and how it was solved.
+---
+
+Optional long-form Markdown/MDX. It's shown at the end of the Overview section. Leave empty if not needed.

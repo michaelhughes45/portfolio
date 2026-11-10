@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArrowRight, Code, ExternalLink } from "lucide-react";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
+import { ProjectBody } from "@/components/project/ProjectBody";
 import { BrowserFrame } from "@/components/shared/BrowserFrame";
 import { Chip } from "@/components/shared/Chip";
 import { Container } from "@/components/shared/Container";
@@ -18,7 +19,16 @@ export const metadata: Metadata = {
   robots: { index: false },
 };
 
-const DEMO_ACCENT = { "--project": "#0f766e", "--project-2": "#6366f1" } as React.CSSProperties;
+const DEMO_BODY = `## Long-form body
+
+Optional MDX after the **problem and solution** cards, with [an internal link](/#projects) and [an external one](https://nextjs.org/).
+
+- Lists use the project color for markers
+- Inline \`code\` gets a soft background
+
+> A short quote to show the accent border.`;
+
+const DEMO_ACCENT ={ "--project": "#0f766e", "--project-2": "#6366f1" } as React.CSSProperties;
 
 function Kit({ theme }: { theme: "light" | "dark" }) {
   return (
@@ -81,6 +91,7 @@ function Kit({ theme }: { theme: "light" | "dark" }) {
             name="Demo Project"
             sizes="(min-width: 1160px) 1112px, 100vw"
           />
+          <ProjectBody source={DEMO_BODY} />
           <div className="grid gap-4 sm:grid-cols-3">
             {[0, 0.1, 0.2].map((delay) => (
               <Reveal key={delay} delay={delay} className="rounded-2xl border bg-card p-6">

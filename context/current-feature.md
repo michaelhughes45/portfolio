@@ -1,18 +1,43 @@
-# Current Feature
+# Current Feature: 04 Content Pipeline
 
-<!-- Feature name and short description -->
+Load project content from `content/projects/*.mdx`, validate it with Zod, and expose typed helpers for pages. Add the template and the first project (Task Master) to prove the pipeline end to end.
 
 ## Status
 
-<!-- Not Started | In Progress | Completed -->
+In Progress
 
 ## Goals
 
-<!-- Goals and requirements -->
+- **Schema** `src/lib/content/schema.ts`: Zod version of the Content Model in `context/project-overview.md`
+  - hex check for `accent`/`accent2`; `https://` check for `live`/`repo`
+  - `icon` as `z.enum(PROJECT_ICON_NAMES)` shared with `ProjectIcon`
+  - lengths: `chips` 3–8, `highlights` 3, `features` 4–6, `stack` 1–4 groups of 1–6 items, `arch.flow` 2–4, `arch.extras` 0–3, `challenges` 2–4, `short` 1–2 chars
+  - `draft` defaults to `false`; `timeline` is a string
+  - `export type Project = z.infer<...> & { slug: string; body: string }`
+- **Pure parser** `src/lib/content/parse.ts`: `parseProjectFile` (gray-matter + validate + slug), errors formatted as `content/projects/foo.mdx: accent: Invalid hex color`; kebab-case slug check
+- **Loader** `src/lib/content/projects.ts` (`server-only`, React `cache`):
+  - `getAllProjects()`: every `.mdx` except `_*`, drafts dropped in production, sorted by `order`, duplicate published `order` is an error
+  - `getProject(slug)` → project or `null`; `getAdjacentProjects(slug)` → `{ prev, next }` wrapping around
+  - Cover check: `public${cover}` must exist (error in production, warning in dev)
+- **MDX body** rendered with an RSC-compatible renderer (check Context7 for the current recommendation), styled to match the site
+- `content/projects/_template.mdx` (every field commented with an example) and `content/projects/task-master.mdx` (converted from `context/mockup/data.js`)
+- `scripts/check-content.ts` + `npm run check:content`: same validation outside Next.js, pass/fail line per file
+- Header Projects menu reads from `getAllProjects()`; remove `src/config/temp-projects.ts`
+- Tests: `schema.test.ts`, `parse.test.ts`, `projects.test.ts` using fixtures in `src/lib/content/__fixtures__/`
 
 ## Notes
 
-<!-- Any extra notes -->
+- gray-matter parses unquoted `2026` as a number: schema takes `timeline` as a string, template quotes it.
+- File reading stays in `projects.ts`; parsing/validation in `parse.ts` so tests and the script don't need Next.js (no `server-only` import there).
+- Tests use fixtures, never the real `content/` folder.
+- Test cases: valid fixture passes; bad hex, bad URL, unknown icon, too many highlights, duplicate order, bad slug each fail clearly; drafts filtered in production only; sort order; prev/next wrap.
+- Task Master's `public/projects/task-master/cover.png` is a generated placeholder (accent gradient + grid + "screenshot coming soon", 65 KB) so production builds pass. Spec 07 replaces it with the real screenshot.
+- MDX renderer: `next-mdx-remote-client/rsc` (`next-mdx-remote` is archived). `ProjectBody` in `src/components/project/` maps body headings to h3/h4 (the Overview section owns the h2); imports/exports disabled. Previewed on `/dev/ui`.
+- Pure collection logic (`prepareProjects`, `findAdjacent`, `isProjectFile`) lives in `parse.ts`; `projects.ts` exports `loadProjects({ contentDir, publicDir, production })` for tests and wraps it in React `cache`.
+- Schema uses `z.strictObject`, so unknown/misspelled fields fail. `check:content` runs via `tsx`; drafts with a missing cover only warn there.
+- `ProjectIcon` already exports `PROJECT_ICON_NAMES` / `ProjectIconName` (spec 02).
+- Run Vitest from `D:\` (uppercase) to avoid the duplicate module load issue.
+- References: `context/project-overview.md` (Content Model), `context/mockup/data.js`.
 
 ## History
 

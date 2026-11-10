@@ -5,7 +5,7 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SkipLink } from "@/components/layout/SkipLink";
 import { ThemeProvider } from "@/components/theme-provider";
 import { siteConfig } from "@/config/site";
-import { TEMP_PROJECTS } from "@/config/temp-projects";
+import { getAllProjects } from "@/lib/content/projects";
 import "./globals.css";
 
 const bricolage = Bricolage_Grotesque({
@@ -33,6 +33,14 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
+  const menuProjects = getAllProjects().map(({ slug, name, type, accent, accent2 }) => ({
+    slug,
+    name,
+    type,
+    accent,
+    accent2,
+  }));
+
   return (
     <html
       lang="en"
@@ -47,7 +55,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           disableTransitionOnChange
         >
           <SkipLink />
-          <SiteHeader projects={TEMP_PROJECTS} />
+          <SiteHeader projects={menuProjects} />
           <main id="main" tabIndex={-1} className="flex-1 outline-none">
             {children}
           </main>
