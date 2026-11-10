@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Michael Hughes · Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="proto-note">PROTOTYPE · home page · copy and colors are placeholders to react to</div>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="index.html" class="logo"><span class="logo-mark">MH</span>Michael Hughes</a>
+    <nav class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#how" class="hide-sm">How I build</a>
+      <a href="#about" class="hide-sm">About</a>
+    </nav>
+    <button class="icon-btn" id="theme" aria-label="Toggle theme"></button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="glow" style="width:420px;height:420px;background:#8f82ff;left:-120px;top:-80px"></div>
+  <div class="glow" style="width:380px;height:380px;background:#16a34a;right:-100px;top:120px"></div>
+  <div class="wrap hero-grid">
+    <div class="reveal">
+      <span class="status">Open to full-stack and front-end roles</span>
+      <h1>I build web apps<br>that <span class="grad">ship.</span></h1>
+      <p class="hero-lead">I'm Michael, a full-stack developer working in TypeScript, React and Node. I take projects from a written spec to a tested, deployed app. Here are three that are live right now.</p>
+      <div class="btn-row">
+        <a href="#work" class="btn btn-primary">See my work <span data-icon="arrow"></span></a>
+        <a href="#" class="btn"><span data-icon="file"></span>Résumé</a>
+        <a href="https://github.com/michaelhughes45" class="btn" target="_blank" rel="noopener"><span data-icon="github"></span>GitHub</a>
+      </div>
+    </div>
+    <div class="code-card reveal" aria-label="Summary card">
+      <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="fname">michael.ts</span></div>
+<pre><span class="tk-k">const</span> <span class="tk-v">michael</span> <span class="tk-p">=</span> {
+  role: <span class="tk-s">"Full-stack developer"</span>,
+  languages: [<span class="tk-s">"TypeScript"</span>, <span class="tk-s">"JavaScript"</span>],
+  frontend: [<span class="tk-s">"React"</span>, <span class="tk-s">"Next.js"</span>, <span class="tk-s">"Tailwind"</span>],
+  backend: [<span class="tk-s">"Node"</span>, <span class="tk-s">"Express"</span>, <span class="tk-s">"Prisma"</span>],
+  databases: [<span class="tk-s">"Postgres"</span>, <span class="tk-s">"MongoDB"</span>],
+  liveProjects: <span class="tk-b">3</span>,
+  openToWork: <span class="tk-b">true</span>, <span class="tk-c">// 👋</span>
+};</pre>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div class="marquee-track" id="marquee"></div></div>
+
+<section class="section" id="work">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><span class="eyebrow">Selected work</span><h2>Projects</h2></div>
+      <p>Every project is live and has its own page covering what it does, the stack behind it and the hard problems I solved.</p>
+    </div>
+    <div class="cards" id="projects"></div>
+  </div>
+</section>
+
+<section class="section" id="how" style="background:var(--bg-2);border-block:1px solid var(--border)">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><span class="eyebrow">Process</span><h2>How I build</h2></div>
+      <p>Every feature follows the same loop, whether it's a login page or a battle engine.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><span class="n">01</span><div class="ic" data-icon="doc"></div><h3>Spec it</h3><p>Write a short feature spec with goals and edge cases before writing any code.</p></div>
+      <div class="step reveal"><span class="n">02</span><div class="ic" data-icon="branch"></div><h3>Branch it</h3><p>One branch per feature, with focused, conventional commits.</p></div>
+      <div class="step reveal"><span class="n">03</span><div class="ic" data-icon="test"></div><h3>Test it</h3><p>Unit tests for logic, then a check in the browser at desktop and phone sizes.</p></div>
+      <div class="step reveal"><span class="n">04</span><div class="ic" data-icon="rocket"></div><h3>Ship it</h3><p>Merge once the build and tests pass, then deploy to Vercel.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><span class="eyebrow">Toolbox</span><h2>What I work with</h2></div>
+    </div>
+    <div class="skills">
+      <div class="skill reveal"><h3><span data-icon="code"></span>Frontend</h3><div class="chips"><span class="chip">React</span><span class="chip">Next.js</span><span class="chip">TypeScript</span><span class="chip">Tailwind</span><span class="chip">shadcn/ui</span><span class="chip">Redux</span><span class="chip">Material UI</span></div></div>
+      <div class="skill reveal"><h3><span data-icon="server"></span>Backend</h3><div class="chips"><span class="chip">Node</span><span class="chip">Express</span><span class="chip">Server Actions</span><span class="chip">REST</span><span class="chip">JWT</span><span class="chip">Better Auth</span></div></div>
+      <div class="skill reveal"><h3><span data-icon="database"></span>Data</h3><div class="chips"><span class="chip">PostgreSQL</span><span class="chip">Prisma</span><span class="chip">MongoDB</span><span class="chip">Mongoose</span><span class="chip">Neon</span></div></div>
+      <div class="skill reveal"><h3><span data-icon="wrench"></span>Tooling</h3><div class="chips"><span class="chip">Git</span><span class="chip">Vitest</span><span class="chip">Jest</span><span class="chip">Playwright</span><span class="chip">Vercel</span><span class="chip">Render</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="cta reveal">
+      <div>
+        <span class="eyebrow" style="color:#a99fff">About</span>
+        <h2>Let's build something.</h2>
+        <p>[Short bio placeholder: where you studied, what you enjoy building, what kind of role you're looking for.]</p>
+      </div>
+      <div class="cta-links">
+        <a href="#" class="btn btn-light"><span data-icon="mail"></span>Email me</a>
+        <a href="#" class="btn btn-ghost"><span data-icon="linkedin"></span>LinkedIn</a>
+        <a href="#" class="btn btn-ghost"><span data-icon="file"></span>Download résumé</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap"><span>© 2026 Michael Hughes</span><span>Built with Next.js · Hosted on Vercel</span></div></footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script>
+  const tech = ["TypeScript","React","Next.js","Node.js","Express","PostgreSQL","Prisma","MongoDB","Tailwind CSS","shadcn/ui","Redux","Vitest","Jest","Vercel"];
+  document.getElementById("marquee").innerHTML = [...tech, ...tech].map((t) => `<span>${t}</span>`).join("");
+
+  document.getElementById("projects").innerHTML = PROJECTS.map((p, i) => `
+    <a class="pcard reveal" href="project.html?p=${p.slug}" style="--accent:${p.accent};--accent2:${p.accent2}">
+      ${frame(p)}
+      <div class="pcard-body">
+        <span class="proj-num">${String(i + 1).padStart(2, "0")} · ${p.type}</span>
+        <h3>${p.name}</h3>
+        <p>${p.tagline}</p>
+        <div class="chips">${p.chips.slice(0, 4).map((c) => `<span class="chip">${c}</span>`).join("")}</div>
+        <span class="pcard-cta">View project ${icon("arrow")}</span>
+      </div>
+    </a>`).join("") + `
+    <div class="pcard pcard-next reveal">
+      <div class="plus">${icon("plus")}</div>
+      <strong>Next project</strong>
+      <span>In progress. New projects get a card here and their own page.</span>
+    </div>`;
+
+  renderNav(); hydrateIcons(); initTheme(); fitFrames(); initReveal();
+</script>
+</body>
+</html>

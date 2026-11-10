@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project · Michael Hughes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="proto-note">PROTOTYPE · project case-study template · switch projects with the links at the bottom</div>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="index.html" class="logo"><span class="logo-mark">MH</span>Michael Hughes</a>
+    <nav class="nav-links">
+      <a href="index.html#work">Work</a>
+      <a href="index.html#how" class="hide-sm">How I build</a>
+      <a href="index.html#about" class="hide-sm">About</a>
+    </nav>
+    <button class="icon-btn" id="theme" aria-label="Toggle theme"></button>
+  </div>
+</header>
+
+<main id="page"></main>
+
+<footer><div class="wrap"><span>© 2026 Michael Hughes</span><span>Built with Next.js · Hosted on Vercel</span></div></footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script>
+  const slug = new URLSearchParams(location.search).get("p") || PROJECTS[0].slug;
+  const i = Math.max(0, PROJECTS.findIndex((p) => p.slug === slug));
+  const p = PROJECTS[i];
+  const prev = PROJECTS[(i - 1 + PROJECTS.length) % PROJECTS.length];
+  const next = PROJECTS[(i + 1) % PROJECTS.length];
+  document.title = `${p.name} · Michael Hughes`;
+  document.body.style.setProperty("--accent", p.accent);
+  document.body.style.setProperty("--accent2", p.accent2);
+
+  const sections = [["overview", "Overview"], ["features", "Features"], ["stack", "Tech stack"], ["architecture", "How it works"], ["challenges", "Challenges"]];
+
+  const archFlow = p.arch.flow.map((n, k) =>
+    (k ? `<div class="arch-arrow">${icon("arrow")}${n.label ? `<small>${n.label}</small>` : ""}</div>` : "") +
+    `<div class="arch-node${n.main ? " main" : ""}"><strong>${n.t}</strong><span>${n.s}</span></div>`).join("");
+
+  document.getElementById("page").innerHTML = `
+  <section class="p-hero">
+    <div class="glow" style="width:460px;height:460px;background:${p.accent};right:-140px;top:-160px"></div>
+    <div class="glow" style="width:360px;height:360px;background:${p.accent2};left:-160px;top:200px;opacity:.18"></div>
+    <div class="wrap" style="position:relative">
+      <a href="index.html#work" class="back">${icon("back")}Back to home</a>
+      <div class="p-title">
+        <div>
+          <span class="status" style="--c:${p.accent}">${p.status}</span>
+          <h1>${p.name}</h1>
+          <p class="tagline">${p.tagline}</p>
+        </div>
+        <div class="btn-row">
+          <a href="${p.live}" class="btn btn-accent" target="_blank" rel="noopener">${icon("external")}Visit live site</a>
+          <a href="${p.repo}" class="btn" target="_blank" rel="noopener">${icon("github")}View code</a>
+        </div>
+      </div>
+      <dl class="meta">
+        <div><dt>Role</dt><dd>${p.role}</dd></div>
+        <div><dt>Type</dt><dd>${p.type}</dd></div>
+        <div><dt>Timeline</dt><dd>${p.year}</dd></div>
+        <div><dt>Stack</dt><dd>${p.chips.slice(0, 3).join(" · ")}</dd></div>
+      </dl>
+      <div class="reveal in">${frame(p)}</div>
+    </div>
+  </section>
+
+  <div class="wrap p-body">
+    <nav class="toc" aria-label="On this page">${sections.map(([id, t]) => `<a href="#${id}">${t}</a>`).join("")}</nav>
+    <div>
+      <section class="p-section" id="overview">
+        <span class="eyebrow">Overview</span>
+        <h2>Why I built it</h2>
+        <div class="ps reveal">
+          <div class="card"><h3>The problem</h3><p>${p.problem}</p></div>
+          <div class="card"><h3>The solution</h3><p>${p.solution}</p></div>
+        </div>
+      </section>
+
+      <section class="p-section" id="features">
+        <span class="eyebrow">Features</span>
+        <h2>What it does</h2>
+        <div class="features">${p.features.map((f) => `
+          <div class="card feature reveal"><div class="ic">${icon(f.icon)}</div><h3>${f.title}</h3><p>${f.text}</p></div>`).join("")}
+        </div>
+      </section>
+
+      <section class="p-section" id="stack">
+        <span class="eyebrow">Tech stack</span>
+        <h2>What it's built with, and why</h2>
+        ${p.stack.map((g) => `
+          <div class="stack-group reveal"><h3>${g.group}</h3>
+            <div class="stack-list">${g.items.map((s) => `
+              <div class="card stack-item"><div class="badge">${s.short}</div><div><strong>${s.name}</strong><span>${s.why}</span></div></div>`).join("")}
+            </div>
+          </div>`).join("")}
+      </section>
+
+      <section class="p-section" id="architecture">
+        <span class="eyebrow">How it works</span>
+        <h2>Architecture</h2>
+        <div class="card arch reveal">
+          <div class="arch-flow">${archFlow}</div>
+          <div class="arch-extras">${p.arch.extras.map((x) => `<div class="arch-node"><em>${x.e}</em><strong>${x.t}</strong><span>${x.s}</span></div>`).join("")}</div>
+        </div>
+      </section>
+
+      <section class="p-section" id="challenges">
+        <span class="eyebrow">Challenges</span>
+        <h2>Hard problems and what I learned</h2>
+        <div class="challenges">${p.challenges.map((c, k) => `
+          <div class="card challenge reveal"><span class="num">${k + 1}</span><h3>${c.title}</h3><p>${c.text}</p></div>`).join("")}
+        </div>
+      </section>
+
+      <nav class="pn" aria-label="More projects">
+        <a class="card" href="project.html?p=${prev.slug}" style="--accent:${prev.accent}"><small>${icon("back")}Previous</small><strong>${prev.name}</strong></a>
+        <a class="card" href="project.html?p=${next.slug}" style="--accent:${next.accent}"><small>Next${icon("arrow")}</small><strong>${next.name}</strong></a>
+      </nav>
+    </div>
+  </div>`;
+
+  // Highlight the current section in the side nav
+  const links = [...document.querySelectorAll(".toc a")];
+  const spy = new IntersectionObserver((es) => es.forEach((e) => {
+    if (e.isIntersecting) links.forEach((a) => a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id));
+  }), { rootMargin: "-40% 0px -55% 0px" });
+  document.querySelectorAll(".p-section").forEach((s) => spy.observe(s));
+
+  renderNav(p.slug); initTheme(); fitFrames(); initReveal();
+</script>
+</body>
+</html>
