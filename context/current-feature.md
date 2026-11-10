@@ -1,18 +1,46 @@
-# Current Feature
+# Current Feature: 05 Home Page
 
-<!-- Feature name and short description -->
+Build `/` from the prototype: hero with code card, tech strip, project cards, How I build, Toolbox and the About + contact panel. All text comes from `src/config/site.ts` or the project content.
 
 ## Status
 
-<!-- Not Started | In Progress | Completed -->
+In Progress
 
 ## Goals
 
-<!-- Goals and requirements -->
+- **Hero**: faint grid background + two `Glow`s. `StatusDot` "Open to full-stack and front-end roles", `h1` "I build web apps that ship." (last word in the multicolor gradient), intro paragraph, buttons See my work (`#work`), Résumé, GitHub.
+- **`CodeCard`**: dark editor card (window dots, `michael.ts` filename) showing the stack object with syntax colors; lines from `site.ts`, rendered as real text, horizontally scrollable inside the card; slightly rotated on desktop, flat on phones.
+- **`TechMarquee`**: list from `site.ts`, duplicated for a seamless CSS loop, `aria-hidden`, paused with reduced motion.
+- **Projects** (`id="work"`): `SectionHead` "Selected work / Projects" + description. Grid of `ProjectCard`s (2 columns ≥760px, 1 below): `BrowserFrame` with cover, "01 · {type}" in project accent, name, tagline, first 4 chips, "View project →". Whole card is one link to `/projects/<slug>` with hover lift and accent border/shadow.
+- **`NextProjectCard`**: dashed, "+" icon, "Next project / In progress…", shown only when `site.showNextProjectCard` is true.
+- **How I build** (`id="how"`, alternate background): four step cards from `site.ts` (number, Lucide icon, title, text).
+- **Toolbox**: four groups from `site.ts` (Frontend, Backend, Data, Tooling), each a card with icon heading and chips.
+- **About** (`id="about"`): dark rounded panel with eyebrow, `h2` "Let's build something.", bio from `site.ts`, buttons Email me (`mailto:`), LinkedIn, Download résumé. Placeholder links stay `#` until spec 08, marked with a TODO in `site.ts`.
+- Wrap sections in `Reveal`.
+- Page metadata: title "Michael Hughes · Full-stack developer", description from `site.ts`.
 
 ## Notes
 
-<!-- Any extra notes -->
+- Files: `src/app/page.tsx`; `src/components/home/` `Hero`, `CodeCard`, `TechMarquee`, `ProjectCard`, `NextProjectCard`, `Steps`, `Toolbox`, `AboutPanel`; `src/config/site.ts` (hero, code card lines, marquee, steps, toolbox, bio).
+- Only one link wrapper per `ProjectCard`; no nested buttons or links inside it.
+- Card images use `sizes="(min-width: 760px) 50vw, 100vw"`.
+- Hero headline gradient must keep enough contrast in light mode; check it.
+- Lucide 1.x has no brand icons, so the GitHub/LinkedIn buttons need custom SVGs.
+- 404 page links to `/#projects`, but this spec uses `id="work"`; reconcile the two.
+- Testing: matches `context/mockup/index.html` at 375px and 1280px in both themes; each card opens the right project; `showNextProjectCard: false` hides the dashed card; no horizontal scroll at 375px; Lighthouse accessibility ≥ 95.
+- References: `context/mockup/index.html`, `context/mockup/styles.css`.
+
+### Implementation notes
+
+- 404 link changed to `/#work`.
+- Hero intro and code card `liveProjects` use the real project count (`numberWord` in `src/lib/format.ts`, tested).
+- Bricolage now loads as a variable font with the `opsz` axis (as in the prototype); without it the headline wrapped to three lines.
+- `text-gradient-hero` uses darker stops in light mode (≥4.48:1); dark mode keeps the prototype colors.
+- `text-project-ink` (accent mixed 72% with foreground) for small accent text on cards: 5.3:1 light, 7.2:1 dark for Task Master.
+- Code card colors are `--color-code-*` theme tokens. About panel scopes `.dark` inside a `bg-code` wrapper so it is dark in both themes.
+- `GitHubIcon`/`LinkedInIcon` in `shared/BrandIcons.tsx`; `shared/ExternalAnchor.tsx` opens http(s) links in a new tab with an arrow icon and a screen-reader note, and leaves `#`/`mailto:` alone.
+- Single-column grids use `grid-cols-1` (minmax(0,1fr)) so content can't push them past 375px.
+- Email, LinkedIn and résumé are `#` with a TODO(spec 08) in `site.ts`. Project card links go to `/projects/<slug>`, which 404s until spec 06.
 
 ## History
 

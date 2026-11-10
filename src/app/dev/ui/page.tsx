@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 const DEMO_BODY = `## Long-form body
 
-Optional MDX after the **problem and solution** cards, with [an internal link](/#projects) and [an external one](https://nextjs.org/).
+Optional MDX after the **problem and solution** cards, with [an internal link](/#work) and [an external one](https://nextjs.org/).
 
 - Lists use the project color for markers
 - Inline \`code\` gets a soft background

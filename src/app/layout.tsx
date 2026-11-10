@@ -10,7 +10,8 @@ import "./globals.css";
 
 const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
-  weight: ["600", "700", "800"],
+  // Variable font with the optical-size axis, so large headings get the narrower display cut (as in the prototype).
+  axes: ["opsz"],
   variable: "--font-bricolage",
 });
 
