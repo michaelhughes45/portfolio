@@ -16,9 +16,7 @@ export default function Home() {
         {siteConfig.role}. This page checks the theme tokens and fonts in light and dark mode.
       </p>
       <div className="flex flex-wrap items-center gap-3">
-        <Button className="h-11 rounded-[11px] px-[18px] text-[14.5px] font-semibold">
-          Primary button
-        </Button>
+        <Button>Primary button</Button>
         <span className="inline-flex h-7 items-center rounded-full border bg-surface-2 px-2.5 font-mono text-[12.5px] font-medium text-muted-foreground">
           TypeScript
         </span>

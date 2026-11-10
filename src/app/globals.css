@@ -42,9 +42,44 @@
   --color-brand: var(--brand);
   --color-brand-soft: var(--brand-soft);
   --color-code: var(--code-bg);
+
+  --shadow-soft: var(--soft-shadow);
 }
 
-:root {
+@theme {
+  --color-status: #22c55e;
+  --color-dot-red: #ff5f57;
+  --color-dot-yellow: #febc2e;
+  --color-dot-green: #28c840;
+
+  --animate-marquee: marquee 40s linear infinite;
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+/* Faint square grid in heroes (48px), faded out with a radial mask. */
+@utility bg-grid {
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 75%);
+}
+
+/* White grid laid over a project's gradient (browser frame placeholder). */
+@utility bg-grid-frame {
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.08) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+:root,
+.light {
   --radius: 0.875rem;
 
   --background: #f6f6fa;
@@ -72,6 +107,7 @@
   --brand: #5b4cf0;
   --brand-soft: rgba(91, 76, 240, 0.1);
   --code-bg: #14161f;
+  --soft-shadow: 0 1px 2px rgba(16, 18, 28, 0.04), 0 12px 32px -12px rgba(16, 18, 28, 0.18);
 
   color-scheme: light;
 }
@@ -102,6 +138,7 @@
   --brand: #8f82ff;
   --brand-soft: rgba(143, 130, 255, 0.12);
   --code-bg: #0d0f15;
+  --soft-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 16px 40px -16px rgba(0, 0, 0, 0.6);
 
   color-scheme: dark;
 }
@@ -116,6 +153,14 @@
   h1,
   h2,
   h3 {
-    @apply font-display leading-[1.1] tracking-[-0.02em];
+    @apply font-display leading-[1.1] font-bold tracking-[-0.02em];
+  }
+}
+
+/* Reveal (src/components/shared/Reveal.tsx) is skipped with reduced motion or no JavaScript. */
+@media (prefers-reduced-motion: reduce), (scripting: none) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

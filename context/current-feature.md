@@ -1,18 +1,33 @@
-# Current Feature
+# Current Feature: 02 Design System
 
-<!-- Feature name and short description -->
+Shared building blocks every page uses, matching the prototype: section layout, chips, status dot, browser frame, reveal animation, project icons, glow and button variants, plus a `/dev/ui` page to view them all.
 
 ## Status
 
-<!-- Not Started | In Progress | Completed -->
+In Progress
 
 ## Goals
 
-<!-- Goals and requirements -->
+- **`Section`** (`src/components/shared/Section.tsx`): vertical padding 96px desktop / 64px phone, optional `id`, optional alternate background (`bg-2` with top/bottom borders). Includes the max-width container (1160px, 24px gutter, 16px on phones).
+- **`SectionHead`**: mono uppercase eyebrow (brand color or project accent), `h2`, optional description on the right that wraps below on phones.
+- **`Chip`**: mono, 12.5px, pill, sunken background, border.
+- **`StatusDot`**: green dot with a soft ring + text (text always present).
+- **Button variants** (`src/components/ui/button.tsx`): `default` (inverted: text-color background), `outline`, `accent` (project accent background, white text); sizes `default` (44px) and `sm` (36px); icons inside buttons 18px.
+- **`BrowserFrame`**: three dots, URL pill showing the host of `live`, 16:10 image area. Props `src`, `alt`, `url`, `priority?`, `sizes`. `next/image` with `fill` and `object-cover object-top`. In dev, when the image is missing, show the prototype's gradient + grid fallback with the project name.
+- **`Reveal`** (client): fades and lifts children into view once via Motion `whileInView` (`once: true`, small offset). Instant with `prefers-reduced-motion`. Content visible if JS fails.
+- **`ProjectIcon`**: maps allowed icon names (`home, calendar, repeat, chart, bell, shield, layers, swords, zap, move, search, users, upload, heart`) to Lucide components. Unknown names are a type error, not a runtime fallback.
+- **`Glow`**: decorative blurred circle (`aria-hidden`) used behind heroes.
+- **`/dev/ui`** page (`src/app/dev/ui/page.tsx`) rendering every component in both themes; `notFound()` when `process.env.NODE_ENV === "production"`.
+- `globals.css` additions: grid background utility, marquee keyframes (for later).
+- `npm run lint` and `npm run build` pass.
 
 ## Notes
 
-<!-- Any extra notes -->
+- Install the `motion` package; check Context7 for the current import path (`motion/react`).
+- `Reveal` is the only animation wrapper so reduced-motion handling lives in one place.
+- Accent colors come from content: components read them from CSS variables set by a parent (`--project`, `--project-2`), never from props turned into hex classes.
+- References: `context/mockup/styles.css` (exact sizes and colors), `context/mockup/app.js` (icon list).
+- Testing: `/dev/ui` matches the prototype in light and dark at 375px and 1280px; OS reduced motion stops the reveal.
 
 ## History
 
