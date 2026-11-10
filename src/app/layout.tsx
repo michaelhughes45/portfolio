@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Inter, JetBrains_Mono } from "next/font/google";
+import { SiteFooter } from "@/components/layout/SiteFooter";
+import { SiteHeader } from "@/components/layout/SiteHeader";
+import { SkipLink } from "@/components/layout/SkipLink";
 import { ThemeProvider } from "@/components/theme-provider";
 import { siteConfig } from "@/config/site";
+import { TEMP_PROJECTS } from "@/config/temp-projects";
 import "./globals.css";
 
 const bricolage = Bricolage_Grotesque({
@@ -35,14 +39,19 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
       className={`${bricolage.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
-      <body>
+      <body className="flex min-h-dvh flex-col">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <SkipLink />
+          <SiteHeader projects={TEMP_PROJECTS} />
+          <main id="main" tabIndex={-1} className="flex-1 outline-none">
+            {children}
+          </main>
+          <SiteFooter />
         </ThemeProvider>
       </body>
     </html>

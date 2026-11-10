@@ -99,7 +99,7 @@ export default function DevUiPage() {
   if (process.env.NODE_ENV === "production") notFound();
 
   return (
-    <main className="py-10">
+    <div className="py-10">
       <Container className="grid gap-10">
         <div className="flex items-center justify-between gap-4">
           <h1 className="text-[clamp(32px,5vw,48px)] font-extrabold">UI kit</h1>
@@ -112,6 +112,6 @@ export default function DevUiPage() {
         <Kit theme="light" />
         <Kit theme="dark" />
       </Container>
-    </main>
+    </div>
   );
 }

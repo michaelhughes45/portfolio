@@ -1,18 +1,31 @@
-# Current Feature
+# Current Feature: 03 Layout Shell
 
-<!-- Feature name and short description -->
+The sticky site header with the Projects menu, the footer, the skip link and the 404 page, shared by every page.
 
 ## Status
 
-<!-- Not Started | In Progress | Completed -->
+In Progress
 
 ## Goals
 
-<!-- Goals and requirements -->
+- **`SiteHeader`** (`src/components/layout/SiteHeader.tsx`): sticky, blurred translucent background, bottom border, 64px tall.
+  - Logo: rounded square with the conic gradient and "MH", then "Michael Hughes" (never wraps, including at 375px). Links to `/`.
+  - Links: Home, **Projects** menu, About (`/#about`), then the theme toggle.
+  - On phones (<640px): only the Projects menu and theme toggle show next to the logo.
+- **`ProjectsMenu`** (`ProjectsMenu.tsx`): shadcn `dropdown-menu` (added with the shadcn CLI). Each item shows the project's color swatch (`accent` → `accent2` gradient), name and type, and links to `/projects/<slug>`. Current project marked with `aria-current="page"` and highlighted. Works with keyboard and touch. Items come from props.
+- **`SiteFooter`** (`SiteFooter.tsx`): "© {year} Michael Hughes" left, "Built with Next.js · Hosted on Vercel" right; wraps on phones.
+- **`SkipLink`** (`SkipLink.tsx`): "Skip to content" as the first focusable element, targeting `<main id="main">`.
+- **`src/app/layout.tsx`**: header, `<main id="main">`, footer.
+- **`src/app/not-found.tsx`**: friendly message, buttons back home and to the projects section.
+- `html { scroll-padding-top }` so anchor jumps aren't hidden under the sticky header.
 
 ## Notes
 
-<!-- Any extra notes -->
+- Until spec 04 exists, the layout passes a temporary project array (from `context/mockup/data.js`) to `ProjectsMenu`; spec 04 removes it.
+- Sticky gotcha from the prototype: use `overflow-x: clip` on `body` only, and no `overflow` on any ancestor of the header.
+- Name, footer text etc. should come from `src/config/site.ts`, not be hard-coded.
+- Testing: header pinned while scrolling on every page (desktop and 375px); menu opens with click, tap and keyboard (Enter/Space, arrows, Escape) and links work; `/does-not-exist` shows the 404; no horizontal scroll at 375px.
+- References: `context/mockup/index.html`, `context/mockup/app.js` (`renderNav`), `context/mockup/styles.css` (`.nav`, `.nav-drop`).
 
 ## History
 

@@ -1,16 +1,12 @@
-import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 
 export default function Home() {
   return (
-    <main className="mx-auto flex min-h-dvh max-w-[1160px] flex-col justify-center gap-6 px-4 py-16 sm:px-6">
-      <div className="flex items-center justify-between gap-4">
-        <span className="font-mono text-[12.5px] font-semibold tracking-[0.12em] text-brand uppercase">
-          Placeholder
-        </span>
-        <ThemeToggle />
-      </div>
+    <div className="mx-auto flex min-h-[70dvh] max-w-[1160px] flex-col justify-center gap-6 px-4 py-16 sm:px-6">
+      <span className="font-mono text-[12.5px] font-semibold tracking-[0.12em] text-brand uppercase">
+        Placeholder
+      </span>
       <h1 className="text-[clamp(44px,8vw,80px)] font-extrabold">{siteConfig.name}</h1>
       <p className="max-w-xl text-muted-foreground">
         {siteConfig.role}. This page checks the theme tokens and fonts in light and dark mode.
@@ -22,6 +18,6 @@ export default function Home() {
         </span>
         <span className="text-sm text-faint">faint text</span>
       </div>
-    </main>
+    </div>
   );
 }
