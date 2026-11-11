@@ -1,18 +1,36 @@
-# Current Feature
+# Current Feature: 07 Project Write-ups
 
-<!-- Feature name and short description -->
+Write the real content for all three projects (Task Master, PokéTTRPG, Ez Rentals), fact-checked against each repo, with real cover screenshots.
 
 ## Status
 
-<!-- Not Started | In Progress | Completed -->
+In Progress
 
 ## Goals
 
-<!-- Goals and requirements -->
+- Create `content/projects/pokettrpg.mdx` and `content/projects/ez-rentals.mdx`, and review `task-master.mdx`, starting from `context/mockup/data.js`
+- Fact-check every claim against each project's own source (`context/project-overview.md`, `README.md`, `package.json` files, the code); fix or remove anything untrue:
+  - Ez Rentals: confirm the seeded-demo-data protection (`isSeeded` + 403 guards) exists; if not, replace that challenge
+  - Task Master: replace the "76 unit tests" figure with a claim that won't go stale (e.g. "timezone and DST edge cases covered by unit tests")
+  - PokéTTRPG: confirm status wording and timeline with Michael
+  - Versions (Next.js 16, React 19) match each `package.json`
+- Ask Michael for anything the repos can't confirm (timeline, role wording)
+- Cover screenshots with Playwright, 1280×800, light mode, saved to `public/projects/<slug>/cover.png`, each under 500 KB:
+  - Task Master: signed in as the seeded demo user from `prisma/seed.ts`, Today page with data
+  - PokéTTRPG: landing page (or a battle screen if a demo account exists; ask)
+  - Ez Rentals: listings page after the Render API wakes and listings load; handle the demo banner consistently
+- `coverAlt` describes what each screenshot shows
+- Run the `content-reviewer` agent on all three and fix its findings
+- `npm run check:content` and `npm run build` pass; pages read well at 375px and 1280px; content-reviewer reports no High findings
 
 ## Notes
 
-<!-- Any extra notes -->
+- Never type the demo password into chat or commit it; read it from the task-master repo at capture time.
+- Free Render APIs take 30–60 seconds to wake: load, wait for real data, then capture.
+- Copy is recruiter-first: short sentences, plain words, what-then-why.
+- Ez Rentals is the Spring 2025 school capstone; don't call it a commercial product.
+- Repo paths: Task Master `D:\programming\Projects\task-master`; PokéTTRPG `C:\Users\mhugh\OneDrive\Documents\Programming\Personal Projects\pokemonGame`; Ez Rentals `C:\Users\mhugh\OneDrive\Documents\school\Spring Semester 2025\Capstone\capstone_project`.
+- References: `context/mockup/data.js`, `.claude/agents/content-reviewer.md`.
 
 ## History
 

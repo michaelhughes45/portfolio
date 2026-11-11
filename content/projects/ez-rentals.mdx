@@ -1,0 +1,99 @@
+---
+name: Ez Rentals
+tagline: A vacation-rental booking site, like a small Airbnb, built as a school capstone project.
+order: 3
+draft: false
+status: Live demo
+type: Full-stack web app
+role: "Solo: design, build, deploy (school capstone)"
+timeline: Spring 2025
+accent: "#0d9488"
+accent2: "#6366f1"
+live: https://capstone-sigma-brown.vercel.app/
+repo: https://github.com/michaelhughes45/Capstone
+cover: /projects/ez-rentals/cover.png
+coverAlt: Ez Rentals' listings page, showing rental property cards below a demo-site notice
+chips: [React 19, Redux Toolkit, Material UI, Express, MongoDB, Jest]
+highlights:
+  - Users can post listings with photos, search by location and category, and book stays
+  - API guarded by rate limiting, MongoDB query sanitizing and CORS limited to the site's own frontend
+  - Backend routes tested with Jest and Supertest, including failure cases
+problem: "The capstone brief: design, build, test and deploy a complete full-stack application."
+solution: An Airbnb-style platform where people register, browse and search listings, post their own properties with images, book stays and keep a wishlist.
+features:
+  - icon: shield
+    title: Accounts
+    text: Register with a profile photo and sign in. The API returns a token on login.
+  - icon: upload
+    title: Post listings
+    text: Hosts create listings and upload photos of the property.
+  - icon: search
+    title: Search
+    text: Filter listings by category, or search by title, place or category.
+  - icon: calendar
+    title: Bookings
+    text: Pick dates on a calendar, book a stay and see it in your trips.
+  - icon: home
+    title: Trips and reservations
+    text: Guests see their current and past trips; hosts see bookings on their properties.
+  - icon: heart
+    title: Wishlist
+    text: Save listings to come back to later.
+stack:
+  - group: Frontend
+    items:
+      - name: React 19 + Vite
+        short: "Re"
+        why: Component-based UI with a fast dev server.
+      - name: Redux Toolkit + Persist
+        short: "Rx"
+        why: Keeps the signed-in user, token and wishlist in the browser so they survive a page refresh.
+      - name: Material UI + SCSS
+        short: "MU"
+        why: Ready-made components, customized with Sass.
+      - name: React Router 7
+        short: "RR"
+        why: Client-side routing between listings, trips and profile.
+  - group: Backend & data
+    items:
+      - name: Express + Node
+        short: "Ex"
+        why: REST API for users, listings and bookings.
+      - name: MongoDB + Mongoose
+        short: "Mg"
+        why: Document models for listings, bookings and users.
+      - name: Rate limit · sanitize · CORS
+        short: "Sx"
+        why: Request throttling, protection against MongoDB query injection and an allow-list of frontend origins.
+      - name: Jest + Supertest
+        short: "Je"
+        why: Automated tests that call the API routes directly.
+arch:
+  flow:
+    - title: Browser
+      sub: React on Vercel
+    - title: Express API
+      sub: Render · REST
+      label: fetch / JSON
+      main: true
+    - title: MongoDB Atlas
+      sub: users · listings · bookings
+      label: Mongoose
+  extras:
+    - tag: Uploads
+      title: Multer
+      sub: listing and profile photos
+    - tag: Security
+      title: Request guards
+      sub: rate limit · Mongo sanitize · CORS
+    - tag: Nightly
+      title: GitHub Actions → reset
+      sub: reseeds the demo data
+challenges:
+  - title: Deploying across two hosts
+    text: With the frontend on Vercel and the API on Render, the port, allowed CORS origins and API URL all moved into environment variables, so the same code runs locally and in production.
+  - title: A public demo visitors can't break
+    text: Seeded demo listings and bookings are flagged, and the delete routes refuse to remove them. A scheduled GitHub Actions job also wakes the API every night and reseeds the database, so the demo starts fresh each day.
+  - title: First steps in API security
+    text: The API sanitizes MongoDB queries, rate-limits requests and only accepts calls from the allowed frontend, and Jest tests cover both the normal and the failure paths of the main routes. Login returns a token, but route-level token checks weren't added before the deadline. That's the first thing I'd fix.
+---
