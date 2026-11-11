@@ -12,11 +12,11 @@ accent2: "#0ea5e9"
 live: https://taskmaster-eight-sigma.vercel.app/
 repo: https://github.com/michaelhughes45/task-master
 cover: /projects/task-master/cover.png
-coverAlt: Task Master's Today page showing events and to-dos
+coverAlt: Task Master's sign-in page, with Google sign-in and an email and password form
 chips: [Next.js, TypeScript, Postgres, Prisma, Better Auth, Tailwind]
 highlights:
-  - Google Calendar–style repeating events and tasks, with “this one / following / all” edits
-  - Timezone- and daylight-saving-safe date logic, backed by 76 unit tests
+  - Repeating events and tasks, with “this one / this and following / all” edits like Google Calendar
+  - Timezone- and daylight-saving-safe date logic, with the edge cases covered by unit tests
   - Installs to your phone, with a Sunday push notification for the weekly review
 problem: Calendars handle appointments and to-do apps handle tasks, but neither gives one morning view of the day, and neither shows how the week actually went.
 solution: Task Master puts timed events and daily and weekly to-dos in one place, records what got done (and what was missed or done late), and turns it into a weekly review.
@@ -26,7 +26,7 @@ features:
     text: "The screen to open in the morning: today's events in order, today's and this week's to-dos, and anything still open from earlier."
   - icon: calendar
     title: Day, week and month calendar
-    text: Events with times, locations, notes and colors, viewable at any zoom level.
+    text: Events with times, locations, notes and colors, shown in day, week or month views.
   - icon: repeat
     title: Recurrence
     text: Daily, weekly on chosen days, monthly, yearly or custom, ending never, on a date or after N times.
@@ -38,13 +38,13 @@ features:
     text: Installable on phone and desktop, with a web-push reminder when the week's review is ready.
   - icon: shield
     title: Accounts
-    text: Email and password or Google sign-in, with email verification and password reset.
+    text: Email and password or Google sign-in, with password reset and optional email verification.
 stack:
   - group: Frontend
     items:
       - name: Next.js 16
         short: "N"
-        why: App Router with Server Components and Server Actions, so there's no separate API to maintain.
+        why: Server Components and Server Actions (code that runs on the server) let pages talk to the database directly instead of through a hand-built REST API.
       - name: Tailwind v4 + shadcn/ui
         short: "Tw"
         why: Accessible components and light/dark theme tokens taken straight from the mockups.
@@ -61,7 +61,7 @@ stack:
         why: Email/password and Google sign-in, sessions, verification and reset.
       - name: Resend
         short: "Rs"
-        why: Sends the verification and password-reset emails.
+        why: Sends password-reset and verification emails.
   - group: Logic & tooling
     items:
       - name: rrule
@@ -102,7 +102,7 @@ arch:
       sub: “Your review is ready”
 challenges:
   - title: Getting “today” right everywhere
-    text: Every date is worked out in the user's own timezone. Daylight-saving gaps and repeated hours broke the obvious library approach, so time conversion is built on UTC offsets and tested against New York, Auckland, Havana and São Paulo edge cases.
+    text: Every date is worked out in the user's own timezone. The standard library helpers got daylight-saving gaps and repeated hours wrong, so time conversion is built on UTC offsets and tested against New York, Auckland, Havana and São Paulo edge cases.
   - title: Repeating items without storing every copy
     text: Rules are saved as RRULE strings and only expanded for the days on screen. Only completions and exceptions become rows, which is what makes “edit this one / this and following / all” possible.
   - title: A review that stays honest

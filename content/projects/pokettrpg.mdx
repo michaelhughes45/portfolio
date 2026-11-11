@@ -1,0 +1,106 @@
+---
+name: PokéTTRPG
+tagline: A web app that runs the rules for Pokémon-themed tabletop role-playing games, with multiplayer turn-based battles in the browser.
+order: 2
+draft: false
+status: Live · in development
+type: Multiplayer web app
+role: "Solo: design, build, deploy"
+timeline: "2026 – present"
+accent: "#e11d48"
+accent2: "#f59e0b"
+live: https://pokemon-game-rust.vercel.app/
+repo: https://github.com/michaelhughes45/pokemonGame
+cover: /projects/pokettrpg/cover.png
+coverAlt: PokéTTRPG's landing page, with the headline and stat tiles beside a sample battle round where players choose their moves
+chips: [React, TypeScript, Express, MongoDB, Vite, JWT]
+highlights:
+  - Turn-based multiplayer battles kept in sync by polling, with no WebSocket server
+  - Damage from the Smogon calculator that competitive Pokémon players use, run on the server
+  - Separate player, DM and admin roles, each with its own permissions
+problem: Running a Pokémon-themed tabletop game means tracking HP, PP, status effects, turn order and damage formulas by hand, which slows every battle to a crawl.
+solution: The DM sets up campaigns, encounters and NPCs; players manage trainers, Pokémon and items. The app resolves damage, status and turn order, while movement stays on the physical table with miniatures.
+features:
+  - icon: layers
+    title: Campaigns and encounters
+    text: DMs invite players, build encounters and NPC trainers with a choice of AI strategies, launch battles and award EXP.
+  - icon: swords
+    title: Multiplayer battles
+    text: "Wild, NPC and player-versus-player battles: everyone submits moves, the server orders turns by speed, then each actor picks targets in turn."
+  - icon: zap
+    title: Real damage math
+    text: Type matchups, same-type bonus, weather, abilities, held items and natures come from the Smogon damage calculator, with the campaign's own rules layered on top.
+  - icon: move
+    title: Party and PC
+    text: Drag-and-drop team management that works with touch and mouse.
+  - icon: search
+    title: On-demand Pokédex
+    text: Species data is fetched from PokeAPI the first time it's needed, then cached.
+  - icon: users
+    title: Roles
+    text: Players, DMs and admins get different pages, and the API rejects actions outside a user's role.
+stack:
+  - group: Frontend
+    items:
+      - name: React 19 + Vite
+        short: "Re"
+        why: Fast single-page app for the battle screen and team management.
+      - name: Tailwind + shadcn/ui
+        short: "Tw"
+        why: Mobile-first, because players use their phones at the table.
+      - name: dnd-kit
+        short: "dk"
+        why: Drag and drop for party and PC boxes, with touch support.
+  - group: Backend & data
+    items:
+      - name: Express 5 + TypeScript
+        short: "Ex"
+        why: REST API with auth middleware that checks the user's role on protected routes.
+      - name: MongoDB Atlas
+        short: "Mg"
+        why: Flexible documents for battle state and homebrew trainer stats.
+      - name: JWT + bcrypt
+        short: "JW"
+        why: Stateless sign-in. Each user's role (player, DM or admin) is stored on their account and carried in the token.
+  - group: Game logic & hosting
+    items:
+      - name: "@smogon/calc"
+        short: "Sm"
+        why: The community-standard damage calculator, run on the server with Gen 9 rules so players can't tamper with results.
+      - name: PokeAPI
+        short: "PA"
+        why: Source of species, abilities, moves and evolution data, cached in the database after the first request.
+      - name: Vercel + Render
+        short: "▲"
+        why: Frontend on Vercel, API on Render's free tier.
+arch:
+  flow:
+    - title: Players' and DM's phones
+      sub: React on Vercel
+    - title: Express API
+      sub: Render · JWT + roles
+      label: poll every 3 s
+      main: true
+    - title: MongoDB Atlas
+      sub: battles · users · cache
+      label: Mongoose
+  extras:
+    - tag: Turn resolution
+      title: "@smogon/calc"
+      sub: runs server-side per move
+    - tag: Data
+      title: PokeAPI
+      sub: fetched on first encounter, cached
+    - tag: State
+      title: Battle state machine
+      sub: submit → target → end of round
+challenges:
+  - title: Multiplayer without WebSockets
+    text: Each battle is a state machine (move submission, speed-ordered targeting, end of round) stored in one database document. Clients poll it every few seconds, which runs on free hosting, and a phone that drops off simply picks up the current state on its next poll.
+  - title: Pokémon data without a giant import
+    text: Instead of seeding every species up front, data is fetched from PokeAPI the first time it appears in a game and cached, with an admin button to refresh an entry.
+  - title: Keeping the table in the game
+    text: The app deliberately doesn't track board position. Players choose targets based on the miniatures in front of them, and the server resolves each move as soon as its target is chosen.
+---
+
+PokéTTRPG is an unofficial fan project. It isn't affiliated with or endorsed by Nintendo, Game Freak or The Pokémon Company.
