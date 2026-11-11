@@ -1,36 +1,18 @@
-# Current Feature: 07 Project Write-ups
+# Current Feature
 
-Write the real content for all three projects (Task Master, PokéTTRPG, Ez Rentals), fact-checked against each repo, with real cover screenshots.
+<!-- Feature name and short description -->
 
 ## Status
 
-In Progress
+<!-- Not Started | In Progress | Completed -->
 
 ## Goals
 
-- Create `content/projects/pokettrpg.mdx` and `content/projects/ez-rentals.mdx`, and review `task-master.mdx`, starting from `context/mockup/data.js`
-- Fact-check every claim against each project's own source (`context/project-overview.md`, `README.md`, `package.json` files, the code); fix or remove anything untrue:
-  - Ez Rentals: confirm the seeded-demo-data protection (`isSeeded` + 403 guards) exists; if not, replace that challenge
-  - Task Master: replace the "76 unit tests" figure with a claim that won't go stale (e.g. "timezone and DST edge cases covered by unit tests")
-  - PokéTTRPG: confirm status wording and timeline with Michael
-  - Versions (Next.js 16, React 19) match each `package.json`
-- Ask Michael for anything the repos can't confirm (timeline, role wording)
-- Cover screenshots with Playwright, 1280×800, light mode, saved to `public/projects/<slug>/cover.png`, each under 500 KB:
-  - Task Master: signed in as the seeded demo user from `prisma/seed.ts`, Today page with data
-  - PokéTTRPG: landing page (or a battle screen if a demo account exists; ask)
-  - Ez Rentals: listings page after the Render API wakes and listings load; handle the demo banner consistently
-- `coverAlt` describes what each screenshot shows
-- Run the `content-reviewer` agent on all three and fix its findings
-- `npm run check:content` and `npm run build` pass; pages read well at 375px and 1280px; content-reviewer reports no High findings
+<!-- Goals and requirements -->
 
 ## Notes
 
-- Never type the demo password into chat or commit it; read it from the task-master repo at capture time.
-- Free Render APIs take 30–60 seconds to wake: load, wait for real data, then capture.
-- Copy is recruiter-first: short sentences, plain words, what-then-why.
-- Ez Rentals is the Spring 2025 school capstone; don't call it a commercial product.
-- Repo paths: Task Master `D:\programming\Projects\task-master`; PokéTTRPG `C:\Users\mhugh\OneDrive\Documents\Programming\Personal Projects\pokemonGame`; Ez Rentals `C:\Users\mhugh\OneDrive\Documents\school\Spring Semester 2025\Capstone\capstone_project`.
-- References: `context/mockup/data.js`, `.claude/agents/content-reviewer.md`.
+<!-- Any extra notes -->
 
 ## History
 
@@ -43,3 +25,4 @@ In Progress
 - **2026-11-10 — 04 Content Pipeline:** `src/lib/content/`: `schema.ts` (Zod 4 `strictObject`, so unknown fields fail; icons from `PROJECT_ICON_NAMES`), `parse.ts` (pure: `parseProjectFile`, `prepareProjects` for draft filter/sort/duplicate order, `findAdjacent` with wrap, `ContentError` with `file: field: message` lines), `projects.ts` (`server-only`; `loadProjects({ contentDir, publicDir, production })` for tests, cached `getAllProjects`, `getProject`, `getAdjacentProjects` which returns `null` for unknown slugs and the project itself when there's only one). Missing cover fails production builds, warns in dev. MDX body via `next-mdx-remote-client/rsc` (`next-mdx-remote` is archived) in `src/components/project/ProjectBody.tsx`: headings become h3/h4, imports/exports disabled, external links get an icon. `content/projects/_template.mdx` and `task-master.mdx`; `public/projects/task-master/cover.png` is a generated placeholder until spec 07. `npm run check:content` (`tsx scripts/check-content.ts`). Root layout feeds the Projects menu from `getAllProjects()`; `temp-projects.ts` removed. 34 tests using fixtures in `src/lib/content/__fixtures__/`.
 - **2026-11-10 — 05 Home Page:** `src/components/home/`: `Hero` (grid + two `Glow`s, gradient headline, live project count in the intro), `CodeCard` (real text from `siteConfig.codeCard`, `{ projectCount: true }` value, `--color-code-*` tokens, rotated at ≥900px, scrollable focusable `pre`), `TechMarquee` (list rendered twice with per-item right padding so -50% loops seamlessly), `ProjectCard` (one `Link`, `--project` vars, `text-project-ink`, `sizes="(min-width: 760px) 50vw, 100vw"`), `NextProjectCard` (`showNextProjectCard`), `Steps`, `Toolbox`, `AboutPanel` (`.dark` scope inside a `bg-code` wrapper). All home copy in `site.ts` (`hero`, `codeCard`, `marquee`, `sections`, `steps`, `toolbox`; Lucide icons imported there); email/LinkedIn/résumé are `#` with TODO(spec 08). New shared `BrandIcons` (GitHub/LinkedIn) and `ExternalAnchor` (http(s) → new tab + arrow icon + sr-only note). `src/lib/format.ts` `numberWord` (tested, 36 tests). `globals.css`: `text-gradient-hero` (darker light-mode stops, ≥4.48:1), `text-project-ink` (accent 72% + foreground). Bricolage loads as a variable font with `axes: ["opsz"]` to match the prototype's narrower headings. Single-column grids need `grid-cols-1` (minmax(0,1fr)) or long content overflows at 375px. 404 links to `/#work`. Card links 404 until spec 06; Lighthouse not run yet.
 - **2026-11-11 — 06 Project Page:** `src/app/projects/[slug]/page.tsx` (`generateStaticParams`, `dynamicParams = false`, `notFound()`, per-project title/description; `--project`/`--project-2` on the wrapper; SSG ●). `src/components/project/`: `ProjectHero` (accent glows, back link, status, live/code buttons; takes `MetaRow` + cover `BrowserFrame` with `priority` as children), `MetaRow` (`dl`, 2×2 below 720px), `Toc` (client, sticky `top-24`, IntersectionObserver `-40% 0px -55% 0px`, `aria-current="location"`, hidden below 900px), `ProjectSection` (eyebrow in `text-project-ink` + h2; `scroll-mt-4` because it adds to the global 80px `scroll-padding-top`), `ProblemSolution`, `FeatureGrid`, `StackList` (badges `aria-hidden`), `ArchDiagram` (flex flow, arrows `aria-hidden`, sr-only summary, stacks below 720px), `Challenges` (`ol`), `ProjectPager` (hidden when only one project). `ProjectBody` renamed `MdxBody`. Section labels/headings in `siteConfig.projectSections`. Accent button now `color-mix(--project 75%, black)` so white text passes 4.5:1 (#16a34a was 3.3:1). Small labels use `text-muted-foreground` instead of `text-faint`. On Windows, stopping a background `next start`/`next dev` task can leave the node process holding the port; kill it by PID.
+- **2026-11-11 — 07 Project Write-ups:** `content/projects/pokettrpg.mdx` and `ez-rentals.mdx` added, `task-master.mdx` revised; every claim checked against each repo, then the content-reviewer's High findings fixed. Corrections vs the prototype copy: Task Master "76 unit tests" → "edge cases covered by unit tests", email verification is optional (off in production until a Resend domain is verified; reword when it's on), calendar is day/week/month; PokéTTRPG polls every 3 s, @smogon/calc runs with Gen 9 rules plus the app's own rules, PokeAPI supplies species/abilities/moves/evolutions (not items), status "Live · in development", timeline "2026 – present", unofficial fan-project note in the MDX body; Ez Rentals is plain JavaScript, uses `fetch` not Axios, only applies `helmet.crossOriginResourcePolicy`, issues a JWT that no route verifies (stated honestly in the security challenge), `isSeeded` guards only the listing/booking DELETE routes plus a nightly GitHub Actions reseed, role "Solo: design, build, deploy (school capstone)". Covers 1280×800 light from the live sites with Playwright (viewport screenshot, scrollbars hidden via injected CSS): Task Master sign-in page (the seeded demo user only exists on the dev DB), PokéTTRPG landing page, Ez Rentals `/properties/search/all` with the demo banner kept; Ez Rentals compressed with sharp palette PNG (562 → 182 KB). Playwright MCP can only save inside the project (use `.playwright-mcp/`). YAML values containing `: ` must be quoted.
