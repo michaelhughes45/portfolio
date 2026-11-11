@@ -103,6 +103,15 @@ export const siteConfig = {
     about: { eyebrow: "About", title: "Let's build something." },
   },
 
+  /** Section anchors, menu labels (also the eyebrows) and headings on every project page, in page order. */
+  projectSections: {
+    overview: { label: "Overview", title: "Why I built it" },
+    features: { label: "Features", title: "What it does" },
+    stack: { label: "Tech stack", title: "What it's built with, and why" },
+    architecture: { label: "How it works", title: "Architecture" },
+    challenges: { label: "Challenges", title: "Hard problems and what I learned" },
+  },
+
   steps: [
     {
       title: "Spec it",

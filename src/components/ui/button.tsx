@@ -15,7 +15,7 @@ const buttonVariants = cva(
         outline:
           "border bg-card text-foreground hover:-translate-y-px hover:border-[color-mix(in_srgb,var(--foreground)_25%,var(--border))] motion-reduce:hover:translate-y-0",
         accent:
-          "border border-transparent bg-(--project,var(--brand)) text-white hover:-translate-y-px motion-reduce:hover:translate-y-0",
+          "border border-transparent bg-[color-mix(in_srgb,var(--project,var(--brand))_75%,black)] text-white hover:-translate-y-px motion-reduce:hover:translate-y-0",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost:

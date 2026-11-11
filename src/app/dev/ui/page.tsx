@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArrowRight, Code, ExternalLink } from "lucide-react";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
-import { ProjectBody } from "@/components/project/ProjectBody";
+import { MdxBody } from "@/components/project/MdxBody";
 import { BrowserFrame } from "@/components/shared/BrowserFrame";
 import { Chip } from "@/components/shared/Chip";
 import { Container } from "@/components/shared/Container";
@@ -91,7 +91,7 @@ function Kit({ theme }: { theme: "light" | "dark" }) {
             name="Demo Project"
             sizes="(min-width: 1160px) 1112px, 100vw"
           />
-          <ProjectBody source={DEMO_BODY} />
+          <MdxBody source={DEMO_BODY} />
           <div className="grid gap-4 sm:grid-cols-3">
             {[0, 0.1, 0.2].map((delay) => (
               <Reveal key={delay} delay={delay} className="rounded-2xl border bg-card p-6">

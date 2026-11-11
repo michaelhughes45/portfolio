@@ -1,18 +1,38 @@
-# Current Feature
+# Current Feature: 06 Project Page
 
-<!-- Feature name and short description -->
+Build `/projects/[slug]`, the case-study template every project uses, from the prototype's `project.html`.
 
 ## Status
 
-<!-- Not Started | In Progress | Completed -->
+In Progress
 
 ## Goals
 
-<!-- Goals and requirements -->
+- `src/app/projects/[slug]/page.tsx`: `generateStaticParams` from `getAllProjects()`, `dynamicParams = false`, `notFound()` when `getProject` returns null
+- `generateMetadata`: title "{name} · Michael Hughes", description = tagline
+- `--project` / `--project-2` set on the page wrapper from `accent` / `accent2`
+- **`ProjectHero`**: two accent `Glow`s, "← Back to home", `StatusDot` with `status`, `h1` name, tagline, "Visit live site" (accent) and "View code" (outline) external buttons
+- **`MetaRow`**: `dl` with Role, Type, Timeline, Stack (first 3 chips joined by " · "); 4 columns, 2×2 on phones
+- Cover in `BrowserFrame` with `priority`
+- Two-column body ≥900px: **`Toc`** (client, sticky, IntersectionObserver highlight, hidden on phones) beside the sections:
+  - **Overview** (`#overview`, "Why I built it"): **`ProblemSolution`** cards (solution tinted with accent), then MDX body if present
+  - **Features** (`#features`, "What it does"): **`FeatureGrid`** (2 cols, 1 on phones) with `ProjectIcon`
+  - **Tech stack** (`#stack`, "What it's built with, and why"): **`StackList`** groups with gradient letter badges
+  - **How it works** (`#architecture`, "Architecture"): **`ArchDiagram`** flow nodes left→right with arrows + labels, `main` node highlighted, extras below a dashed line; stacks vertically on phones with down arrows and labels beside them
+  - **Challenges** (`#challenges`, "Hard problems and what I learned"): numbered cards
+- **`ProjectPager`**: Previous / Next cards from `getAdjacentProjects`, hover-highlighted in each project's accent
+- Components in `src/components/project/`: `ProjectHero`, `MetaRow`, `Toc`, `ProblemSolution`, `FeatureGrid`, `StackList`, `ArchDiagram`, `Challenges`, `ProjectPager`, `MdxBody`
 
 ## Notes
 
-<!-- Any extra notes -->
+- Architecture diagram is HTML/CSS flex, not an image. Arrows `aria-hidden`; flow gets a visually hidden summary ("Browser → Next.js on Vercel → Prisma → Neon Postgres").
+- Section anchors need `scroll-margin-top` for the sticky header.
+- Check accent-colored text contrast in both themes; if an accent fails 4.5:1, use it only for decoration (existing `text-project-ink` helper may help).
+- `Toc` is the only client component in the body.
+- `ProjectBody.tsx` already renders MDX (spec 04); spec lists `MdxBody.tsx` — reuse/rename rather than duplicate.
+- Pages must not render their own `<main>` (root layout provides it).
+- References: `context/mockup/project.html`, `context/mockup/styles.css` (`.p-*`, `.arch*`, `.pn`).
+- Testing: `/projects/task-master` matches `context/mockup/project.html?p=task-master` at 375px and 1280px, both themes; TOC highlights and links jump correctly; `/projects/unknown` is a 404; build lists project pages as static (●/○).
 
 ## History
 

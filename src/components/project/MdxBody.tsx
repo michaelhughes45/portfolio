@@ -39,13 +39,13 @@ const components: MDXComponents = {
   hr: () => <hr className="my-8 border-border" />,
 };
 
-interface ProjectBodyProps {
+interface MdxBodyProps {
   source: string;
   className?: string;
 }
 
 /** Renders a project's optional long-form MDX body. Renders nothing when the body is empty. */
-export function ProjectBody({ source, className }: ProjectBodyProps) {
+export function MdxBody({ source, className }: MdxBodyProps) {
   if (source.trim() === "") return null;
 
   return (
